@@ -1,0 +1,36 @@
+{ 
+    "Name" : "purple", 
+    "DisplayName" : "Purple flowers"
+}
+{ 
+    "Name" : "yellow", 
+    "DisplayName" : "Yellow flowers"
+}
+{ 
+    "Name" : "white", 
+    "DisplayName" : "White Flowers"
+}
+{ 
+    "Name" : "red", 
+    "DisplayName" : "Red Flowers"
+}
+{ 
+    "Name" : "rose", 
+    "DisplayName" : "Rose Flowers"
+}
+{ 
+    "Name" : "crystal", 
+    "DisplayName" : "Crystal"
+}
+{ 
+    "Name" : "wild", 
+    "DisplayName" : "Wild"
+}
+{ 
+    "Name" : "cats", 
+    "DisplayName" : "Cats :)"
+}
+{ 
+    "Name" : "other", 
+    "DisplayName" : "Other"
+}

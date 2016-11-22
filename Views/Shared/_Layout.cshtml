@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Flower Shop</title>
+
+    <meta charset="utf-8" />
+
+    <link href="~/js/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/js/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+    <link href="~/css/mixins.css" rel="stylesheet" />
+
+    <script src="~/js/jquery-1.7.2.js"></script>
+    <script src="~/js/bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <section class="container">
+        <h3>Flower Shop <sup><i class="icon-leaf"></i></sup></h3>
+        <p class="lead muted">
+            With this Application you can buy your favorite flower as a gift or for your home, it's up to you! Check out our store by
+            choosing a category!
+        </p>
+
+        @RenderBody()
+
+    </section>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
