@@ -4,8 +4,6 @@
 
 https://www.microsoft.com/net/download/core
 
-## How to build
-
 The default runtimes are:
 ```json
   "runtimes": {
