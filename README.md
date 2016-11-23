@@ -17,8 +17,8 @@ The default runtimes are:
 
 ## Connected services
 
-https://github.com/jaystack/service-flowershop-data-dotnetcore.git
-https://github.com/jaystack/app-flowershop-cart-dotnetcore.git
+https://github.com/jaystack/service-flowershop-data-dotnetcore.git <br />
+https://github.com/jaystack/app-flowershop-cart-dotnetcore.git <br />
 https://github.com/jaystack/app-flowershop-items-dotnetcore.git
 
 ## How to build
