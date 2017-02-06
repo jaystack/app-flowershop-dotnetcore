@@ -16,7 +16,7 @@ namespace App.Flowershop
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:9000/")
+                .UseUrls("http://*:9000/")
                 .Build();
 
             host.Run();
