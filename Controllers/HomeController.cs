@@ -31,7 +31,7 @@ namespace App.Flowershop.Controllers
         {
             var vm = new IndexViewModel();
             vm.ItemsContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Items), "/checkout").Result;
-            vm.SummaryContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/summary").Result;
+            vm.SummaryContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/cart/summary").Result;
 
             return View("Index", vm);
         }
@@ -42,54 +42,59 @@ namespace App.Flowershop.Controllers
             var vm = new IndexViewModel();
 
             vm.ItemsContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Items), "/category/" + catName).Result;
-            vm.SummaryContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/summary").Result;
+            vm.SummaryContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/cart/summary").Result;
 
             return View("Index", vm);
         }
 
+        [HttpGet("/checkout")]
         [HttpGet("cart/checkout")]
         public IActionResult Checkout()
         {
             var vm = new IndexViewModel();
 
             vm.ItemsContent = getResponseAsync(config.Value.Apps.Items, "/checkout").Result;
-            vm.CheckoutContent = getResponseAsync(config.Value.Apps.Cart, "/checkout").Result;
+            vm.CheckoutContent = getResponseAsync(config.Value.Apps.Cart, "/cart/checkout").Result;
 
             return View("Index", vm);
         }
 
+        [HttpPost("/checkout")]
         [HttpPost("cart/checkout")]
         public IActionResult Checkout(string customerName, string customerAddress)
         {
             var vm = new IndexViewModel();
 
             vm.ItemsContent = getResponseAsync(store.GetServiceAddress(store.GetServiceAddress(config.Value.Apps.Items)), "/checkout").Result;
-            var result = post(store.GetServiceAddress(store.GetServiceAddress(config.Value.Apps.Cart)), "/checkout", new Dictionary<string, string>()
+            var result = post(store.GetServiceAddress(store.GetServiceAddress(config.Value.Apps.Cart)), "/cart/checkout", new Dictionary<string, string>()
             {
                 { "customerName", customerName },
                 { "customerAddress", customerAddress },
                 { fs_cart, HttpContext.Session.GetString(fs_cart) }
             });
 
+            Console.WriteLine(result.StatusCode);
+            Console.WriteLine(HttpStatusCode.Created);
+
             if (result.StatusCode == HttpStatusCode.Created)
-                vm.SummaryContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/summary").Result;
+                vm.SummaryContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/cart/summary").Result;
 
             return View("Index", vm);
         }
 
-        [HttpGet("cart/add/{id}")]
+        [HttpGet("/cart/add/{id}")]
         public async Task<IActionResult> Add(string id, string ret)
         {
             var vm = new IndexViewModel();
 
-            await getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/add/" + id);
+            await getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/cart/add/" + id);
 
-            if (ret.StartsWith("/category/"))
+            if (!String.IsNullOrEmpty(ret) && ret.StartsWith("/category/"))
                 return Redirect(ret);
             else
             {
                 vm.ItemsContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Items), "/checkout").Result;
-                vm.SummaryContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/summary").Result;
+                vm.SummaryContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/cart/summary").Result;
 
                 return View("Index", vm);
             }
