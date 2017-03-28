@@ -30,8 +30,8 @@ namespace App.Flowershop.Controllers
         public IActionResult Index()
         {
             var vm = new IndexViewModel();
-            vm.ItemsContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Items), "/checkout").Result;
-            vm.SummaryContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/cart/summary").Result;
+            vm.ItemsContent = getResponseAsync("http://" + store.GetServiceAddress(config.Value.Apps.Items), "/checkout").Result;
+            vm.SummaryContent = getResponseAsync("http://" + store.GetServiceAddress(config.Value.Apps.Cart), "/cart/summary").Result;
 
             return View("Index", vm);
         }
@@ -41,8 +41,8 @@ namespace App.Flowershop.Controllers
         {
             var vm = new IndexViewModel();
 
-            vm.ItemsContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Items), "/category/" + catName).Result;
-            vm.SummaryContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/cart/summary").Result;
+            vm.ItemsContent = getResponseAsync("http://" + store.GetServiceAddress(config.Value.Apps.Items), "/category/" + catName).Result;
+            vm.SummaryContent = getResponseAsync("http://" + store.GetServiceAddress(config.Value.Apps.Cart), "/cart/summary").Result;
 
             return View("Index", vm);
         }
@@ -53,8 +53,8 @@ namespace App.Flowershop.Controllers
         {
             var vm = new IndexViewModel();
 
-            vm.ItemsContent = getResponseAsync(config.Value.Apps.Items, "/checkout").Result;
-            vm.CheckoutContent = getResponseAsync(config.Value.Apps.Cart, "/cart/checkout").Result;
+            vm.ItemsContent = getResponseAsync("http://" + store.GetServiceAddress(config.Value.Apps.Items), "/checkout").Result;
+            vm.CheckoutContent = getResponseAsync("http://" + store.GetServiceAddress(config.Value.Apps.Cart), "/cart/checkout").Result;
 
             return View("Index", vm);
         }
@@ -65,8 +65,8 @@ namespace App.Flowershop.Controllers
         {
             var vm = new IndexViewModel();
 
-            vm.ItemsContent = getResponseAsync(store.GetServiceAddress(store.GetServiceAddress(config.Value.Apps.Items)), "/checkout").Result;
-            var result = post(store.GetServiceAddress(store.GetServiceAddress(config.Value.Apps.Cart)), "/cart/checkout", new Dictionary<string, string>()
+            vm.ItemsContent = getResponseAsync("http://" + store.GetServiceAddress(config.Value.Apps.Items), "/checkout").Result;
+            var result = post("http://" + store.GetServiceAddress(config.Value.Apps.Cart), "/cart/checkout", new Dictionary<string, string>()
             {
                 { "customerName", customerName },
                 { "customerAddress", customerAddress },
@@ -77,7 +77,7 @@ namespace App.Flowershop.Controllers
             Console.WriteLine(HttpStatusCode.Created);
 
             if (result.StatusCode == HttpStatusCode.Created)
-                vm.SummaryContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/cart/summary").Result;
+                vm.SummaryContent = getResponseAsync("http://" + store.GetServiceAddress(config.Value.Apps.Cart), "/cart/summary").Result;
 
             return View("Index", vm);
         }
@@ -87,14 +87,14 @@ namespace App.Flowershop.Controllers
         {
             var vm = new IndexViewModel();
 
-            await getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/cart/add/" + id);
+            await getResponseAsync("http://" + store.GetServiceAddress(config.Value.Apps.Cart), "/cart/add/" + id);
 
             if (!String.IsNullOrEmpty(ret) && ret.StartsWith("/category/"))
                 return Redirect(ret);
             else
             {
-                vm.ItemsContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Items), "/checkout").Result;
-                vm.SummaryContent = getResponseAsync(store.GetServiceAddress(config.Value.Apps.Cart), "/cart/summary").Result;
+                vm.ItemsContent = getResponseAsync("http://" + store.GetServiceAddress(config.Value.Apps.Items), "/checkout").Result;
+                vm.SummaryContent = getResponseAsync("http://" + store.GetServiceAddress(config.Value.Apps.Cart), "/cart/summary").Result;
 
                 return View("Index", vm);
             }
