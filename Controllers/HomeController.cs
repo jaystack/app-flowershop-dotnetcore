@@ -7,10 +7,9 @@ using Microsoft.Extensions.Options;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using App.Flowershop.ViewModels;
-using Microsoft.AspNetCore.Cors;
 using System.Net;
 using Microsoft.AspNetCore.Http;
-using SystemEndpoints;
+using SystemEndpointsDotnetCore;
 
 namespace App.Flowershop.Controllers
 {
